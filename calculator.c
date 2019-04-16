@@ -47,10 +47,10 @@ double getnum () {
                 for (i = 0; i < argbufsize; i++) {
                     tmp[i] = '\0';
                 }
-                if ((i = read(0, tmp, sizeof(tmp)-1)) == -1) {
+                if ((i = read(0, tmp, argbufsize-1)) == -1) {
                     exit(0);
                 }
-                for (j = 0; j < i; j++) {
+                for (j = 0; j < argbufsize-1; j++) {
                     if (tmp[j] == '\n') n++;
                 }
             }
@@ -108,7 +108,7 @@ int get_line (char* line) {
                     if ((i = read(0, tmp, maxlinelen-1)) == -1) {
                         continue;
                     }
-                    for (j = 0; j < i; j++) {
+                    for (j = 0; j < maxlinelen-1; j++) {
                         if (tmp[j] == '\n') n++;
                     }
                 }
