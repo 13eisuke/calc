@@ -38,7 +38,7 @@ double getnum () {
             argbuf[i] = '\0';
         }
         if ((i = read(0, argbuf, sizeof(argbuf)-1)) == -1) {
-            continue;
+            exit(0);
         }
 
         if (argbuf[i-1] != '\n') {
@@ -106,7 +106,7 @@ int get_line (char* line) {
                         tmp[i] = '\0';
                     }
                     if ((i = read(0, tmp, maxlinelen-1)) == -1) {
-                        continue;
+                        exit(0);
                     }
                     for (j = 0; j < maxlinelen-1; j++) {
                         if (tmp[j] == '\n') n++;
