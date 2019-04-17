@@ -26,11 +26,15 @@ double getnum () {
     char argbuf[argbufsize], tmp[argbufsize];
     int isNUM = 0, count_dot = 0;
     int i, j, k, n = 0;
+    int digit, bdigit, adigit;
     double num, base;
 
     while (!isNUM) {
         num = 0;
         base = 1;
+        digit = 0;
+        bdigit = 0;
+        adigit = 0;
         count_dot = 0;
         
         write (1, "number > ", sizeof("number > ")-1);
@@ -42,6 +46,7 @@ double getnum () {
         }
 
         if (argbuf[i-1] != '\n') {
+            isNUM = 0;
             n = 0;
             while (!n) {
                 for (i = 0; i < argbufsize; i++) {
@@ -57,11 +62,13 @@ double getnum () {
             write (1, "Error : too long number\n", sizeof("Error : too long number\n")-1);
             continue;
         }
-
+        
         for (j = i-2; j >= 0; j--) {
+            isNUM = 1;
             if ('0' <= argbuf[j] && argbuf[j] <= '9') {
                 num += (argbuf[j] - '0') * base;
                 base *= 10;
+                digit++;
             }
             else if (argbuf[j] == '.' && count_dot < 1) {
                 base = 1;
@@ -69,16 +76,18 @@ double getnum () {
                 for (k = 0; k < i-2-j; k++) {
                     num /= 10;
                 }
+                bdigit = digit;
+                digit = 0;
             }
             else if (j == 0 && argbuf[j] == '-') num *= -1; 
             else {
                 isNUM = 0;
-                write (1, "Error : Invalid input\n", sizeof("Error : Invalid input\n")-1);
                 break;
             }
         }
-        if (j == -1) {
-            isNUM = 1;
+
+        if (!isNUM || (count_dot && (bdigit == 0 || adigit == 0))) {
+            write (1, "Error : Invalid input\n", sizeof("Error : Invalid input\n")-1);
         }
     }
     return num;
