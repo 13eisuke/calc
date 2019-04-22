@@ -7,7 +7,7 @@
 
 double ans = 0, mem = 0;
 
-double getnum();
+double getnum ();
 int get_line (char* line);
 void parse_line (char* line);
 void exe_cmd (char cmd);
@@ -141,19 +141,19 @@ void exe_cmd (char cmd) {
     switch (cmd)
     {
         case 'C':
-            cmd_ansclear();
+            cmd_ansclear ();
             break;
         case 'P':
-            cmd_print();
+            cmd_print ();
             break;
         case 'A':
-            cmd_memadd();
+            cmd_memadd ();
             break;
         case 'M':
-            cmd_memminus();
+            cmd_memminus ();
             break;
         case 'D':
-            cmd_memclear();
+            cmd_memclear ();
             break;
         default:
             write (1, "Error : Invalid command\n", sizeof("Error : Invalid command\n")-1);
